@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d3uj585q8psdk"
+path="res://.godot/imported/Toby Fox - sans..mp3-07663499226eaa0f15e8b61b37e70ff4.mp3str"
+
+[deps]
+
+source_file="res://music/Toby Fox - sans..mp3"
+dest_files=["res://.godot/imported/Toby Fox - sans..mp3-07663499226eaa0f15e8b61b37e70ff4.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

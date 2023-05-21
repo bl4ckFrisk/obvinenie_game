@@ -1,0 +1,347 @@
+[gd_scene load_steps=38 format=3 uid="uid://dx51ur3pmpq6o"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_dslif"]
+[ext_resource type="Texture2D" uid="uid://dfpjbdv64yfuy" path="res://sprites/PC Computer - Hotline Miami 2 Wrong Number - Mafia.png" id="2_6jdh2"]
+[ext_resource type="Texture2D" uid="uid://y4fdacc3am1s" path="res://Level Assets/Ambush.png" id="3_g4vo6"]
+[ext_resource type="AudioStream" uid="uid://cx58vc8nqlcxh" path="res://sound/sound/headcrab/hc_headbite.wav" id="4_pyhyl"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_omv5n"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -121.3
+angle_max = 151.6
+scale_min = 5.0
+scale_max = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvd6b"]
+atlas = ExtResource("3_g4vo6")
+region = Rect2(226, 84, 13, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfv4f"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 924, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dw8l"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 957, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2etc"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 990, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m4ro"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1023, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5ji3"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1056, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1bnj"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1089, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56m6b"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1122, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ewlv"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1155, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usoa8"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1188, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e254s"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1221, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs8cs"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1254, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2m3y"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1287, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3wl1"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1320, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v7sp"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1353, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6babr"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1206, 1386, 35, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dsi1v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfv4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dw8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2etc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m4ro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ji3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1bnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56m6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ewlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usoa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e254s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs8cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2m3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3wl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0v7sp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6babr")
+}],
+"loop": true,
+"name": &"walk_legs",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_lrg3g"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_pressed('right'):
+		rotation_degrees = 0
+	if Input.is_action_pressed('left'):
+		rotation_degrees = 180
+	if Input.is_action_pressed('down'):
+		rotation_degrees = 90
+	if Input.is_action_pressed('up'):
+		rotation_degrees = 270
+	
+#	if Input.is_action_pressed('right'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('left'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('down'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('up'):
+#		rotation_degrees = 90
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uva08"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(141, 866, 52, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtasd"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1187, 1371, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xsr5"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1187, 1338, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rldtn"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1187, 1305, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dk78"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(1187, 1404, 16, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bq4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uva08")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtasd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rldtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtasd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dk78")
+}],
+"loop": true,
+"name": &"truba_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_3iyxc"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8wv0"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(288, 396, 36, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo0st"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(288, 456, 36, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xjef"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(288, 513, 36, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4tf6"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(288, 566, 36, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qhxh"]
+atlas = ExtResource("2_6jdh2")
+region = Rect2(288, 627, 36, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0q1aq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8wv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo0st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xjef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4tf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qhxh")
+}],
+"loop": false,
+"name": &"truba_hit",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v2sj1"]
+radius = 9.0
+height = 22.0
+
+[node name="Enemy" type="RigidBody2D"]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_dslif")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+scale = Vector2(5, 5)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_omv5n")
+texture = SubResource("AtlasTexture_gvd6b")
+lifetime = 600.0
+one_shot = true
+randomness = 0.36
+
+[node name="Anim" type="Node2D" parent="."]
+scale = Vector2(4, 4)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Anim"]
+texture_filter = 1
+position = Vector2(0.125, -4.125)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_dsi1v")
+animation = &"walk_legs"
+speed_scale = 3.0
+script = SubResource("GDScript_lrg3g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Anim"]
+texture_filter = 1
+position = Vector2(0.125, -4.125)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_4bq4r")
+animation = &"truba_walk"
+speed_scale = 1.5
+offset = Vector2(0, 3.5)
+script = SubResource("GDScript_3iyxc")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Anim"]
+visible = false
+texture_filter = 1
+position = Vector2(0, -4)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_0q1aq")
+animation = &"truba_hit"
+speed_scale = 2.5
+offset = Vector2(9, 3.5)
+script = SubResource("GDScript_3iyxc")
+
+[node name="RayCast2D" type="RayCast2D" parent="Anim/AnimatedSprite2D3"]
+target_position = Vector2(30, 0)
+collide_with_areas = true
+
+[node name="Marker2D" type="Marker2D" parent="Anim"]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, -18)
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_v2sj1")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_pyhyl")
+
+[connection signal="_death" from="." to="." method="_on__death"]
+[connection signal="finished" from="death" to="." method="_on_death_finished"]

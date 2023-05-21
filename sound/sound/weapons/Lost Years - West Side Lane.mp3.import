@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dicyyugjwtq3p"
+path="res://.godot/imported/Lost Years - West Side Lane.mp3-448dc30a022a02bcf1873f732d4a12c3.mp3str"
+
+[deps]
+
+source_file="res://sound/sound/weapons/Lost Years - West Side Lane.mp3"
+dest_files=["res://.godot/imported/Lost Years - West Side Lane.mp3-448dc30a022a02bcf1873f732d4a12c3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

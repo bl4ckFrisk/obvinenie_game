@@ -1,0 +1,483 @@
+[gd_scene load_steps=43 format=3 uid="uid://cbucx6grukee7"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_p3hsk"]
+[ext_resource type="Texture2D" uid="uid://dfpjbdv64yfuy" path="res://sprites/PC Computer - Hotline Miami 2 Wrong Number - Mafia.png" id="1_rignv"]
+[ext_resource type="Script" path="res://RayCast2D.gd" id="3_rw1mo"]
+[ext_resource type="AudioStream" uid="uid://vmr8kegrjhwx" path="res://sound/sound/weapons/cbar_miss1.wav" id="3_uh42x"]
+
+[sub_resource type="Animation" id="Animation_283me"]
+resource_name = "shake"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(10, -10), Vector2(20, -10), Vector2(-10, 10), Vector2(-20, -10), Vector2(10, -10), Vector2(20, -10), Vector2(-10, 10), Vector2(-20, -10), Vector2(10, -10), Vector2(20, -10), Vector2(-10, 10), Vector2(-20, -10)]
+}
+
+[sub_resource type="Animation" id="Animation_af5g3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yol31"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ijofu"]
+_data = {
+"RESET": SubResource("Animation_af5g3"),
+"idle": SubResource("Animation_yol31"),
+"shake": SubResource("Animation_283me")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfv4f"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 924, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dw8l"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 957, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2etc"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 990, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m4ro"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1023, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5ji3"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1056, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1bnj"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1089, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56m6b"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1122, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ewlv"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1155, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usoa8"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1188, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e254s"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1221, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs8cs"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1254, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2m3y"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1287, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3wl1"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1320, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v7sp"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1353, 35, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6babr"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1206, 1386, 35, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84esx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfv4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dw8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2etc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m4ro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ji3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1bnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56m6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ewlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usoa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e254s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs8cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2m3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3wl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0v7sp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6babr")
+}],
+"loop": true,
+"name": &"walk_legs",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_4eigt"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_pressed('right'):
+		rotation_degrees = 0
+	if Input.is_action_pressed('left'):
+		rotation_degrees = 180
+	if Input.is_action_pressed('down'):
+		rotation_degrees = 90
+	if Input.is_action_pressed('up'):
+		rotation_degrees = 270
+	
+#	if Input.is_action_pressed('right'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('left'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('down'):
+#		rotation_degrees = 90
+#	if Input.is_action_pressed('up'):
+#		rotation_degrees = 90
+"
+
+[sub_resource type="Shader" id="Shader_m2wif"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+// *** Sub-pixel Accurate Pixel-Sprite Filtering ***
+// (Effectively implements analytical anti-aliasing for point-filtered textures.)
+//
+// A new uv-coordinate is computed that can be used to look up a texture with
+// linear filtering enabled. Therefore only one texture lookup is required.
+// This means you have to check the \"Filter\" option, when importing the texture.
+//
+// A side effect is, that rotated sprites also look smooth.
+//
+// The only use is if you require non-integer scale or rotation. Otherwise, the
+// result will be identical to point-filtering.
+//
+// Possible Issues:
+// - If a sprite has non-integer coordinates (this can be caused by using 
+//   the \"centered\" option), or by manually moving it to a non-integer 
+//   coordinate, it will appear more blurry than without filtering.
+//   This is simply an effect of the algorithm.
+// - There is still aliasing on the outermost edges of the sprite.
+//   This cannot be solved within the fragment shader. It is due to lack of 
+//   real anti-aliasing in the rasterizer.
+
+
+// Additional smoothing factor. Should usually be left at 1.0
+// Lower values cause a stronger smoothing.
+uniform float smoothing_factor : hint_range(0.1, 1.0) = 1.0;
+
+void fragment() {
+	// compute the new uv
+	vec2 uv = UV;
+	vec2 uv_width = fwidth(UV);
+	vec2 sprite_screen_resolution = smoothing_factor / uv_width;
+		
+	vec2 uv_pixel_src = floor(uv / TEXTURE_PIXEL_SIZE + 0.499);
+	
+	vec2 edge = uv_pixel_src;
+	edge = edge * TEXTURE_PIXEL_SIZE * sprite_screen_resolution;
+
+	vec2 uv_pixel = uv * sprite_screen_resolution;
+	vec2 uv_factor = clamp(uv_pixel - edge + 0.5, 0.0, 1.0);
+
+	uv = (mix(uv_pixel_src - 1.0, uv_pixel_src, uv_factor) + 0.5) * TEXTURE_PIXEL_SIZE;
+
+	// now we can use the uv as always...
+	COLOR = texture(TEXTURE, uv).rgba;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qedhm"]
+shader = SubResource("Shader_m2wif")
+shader_parameter/smoothing_factor = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8wv0"]
+atlas = ExtResource("1_rignv")
+region = Rect2(288, 396, 36, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo0st"]
+atlas = ExtResource("1_rignv")
+region = Rect2(288, 456, 36, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xjef"]
+atlas = ExtResource("1_rignv")
+region = Rect2(288, 513, 36, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4tf6"]
+atlas = ExtResource("1_rignv")
+region = Rect2(288, 566, 36, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qhxh"]
+atlas = ExtResource("1_rignv")
+region = Rect2(288, 627, 36, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4w5pw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8wv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo0st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xjef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4tf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qhxh")
+}],
+"loop": false,
+"name": &"truba_hit",
+"speed": 9.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_8svnx"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	look_at(get_global_mouse_position())
+"
+
+[sub_resource type="Shader" id="Shader_tb5lx"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+// *** Sub-pixel Accurate Pixel-Sprite Filtering ***
+// (Effectively implements analytical anti-aliasing for point-filtered textures.)
+//
+// A new uv-coordinate is computed that can be used to look up a texture with
+// linear filtering enabled. Therefore only one texture lookup is required.
+// This means you have to check the \"Filter\" option, when importing the texture.
+//
+// A side effect is, that rotated sprites also look smooth.
+//
+// The only use is if you require non-integer scale or rotation. Otherwise, the
+// result will be identical to point-filtering.
+//
+// Possible Issues:
+// - If a sprite has non-integer coordinates (this can be caused by using 
+//   the \"centered\" option), or by manually moving it to a non-integer 
+//   coordinate, it will appear more blurry than without filtering.
+//   This is simply an effect of the algorithm.
+// - There is still aliasing on the outermost edges of the sprite.
+//   This cannot be solved within the fragment shader. It is due to lack of 
+//   real anti-aliasing in the rasterizer.
+
+
+// Additional smoothing factor. Should usually be left at 1.0
+// Lower values cause a stronger smoothing.
+uniform float smoothing_factor : hint_range(0.1, 1.0) = 1.0;
+
+void fragment() {
+	// compute the new uv
+	vec2 uv = UV;
+	vec2 uv_width = fwidth(UV);
+	vec2 sprite_screen_resolution = smoothing_factor / uv_width;
+		
+	vec2 uv_pixel_src = floor(uv / TEXTURE_PIXEL_SIZE + 0.499);
+	
+	vec2 edge = uv_pixel_src;
+	edge = edge * TEXTURE_PIXEL_SIZE * sprite_screen_resolution;
+
+	vec2 uv_pixel = uv * sprite_screen_resolution;
+	vec2 uv_factor = clamp(uv_pixel - edge + 0.5, 0.0, 1.0);
+
+	uv = (mix(uv_pixel_src - 1.0, uv_pixel_src, uv_factor) + 0.5) * TEXTURE_PIXEL_SIZE;
+
+	// now we can use the uv as always...
+	COLOR = texture(TEXTURE, uv).rgba;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glaei"]
+shader = SubResource("Shader_tb5lx")
+shader_parameter/smoothing_factor = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtasd"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1187, 1371, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xsr5"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1187, 1338, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rldtn"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1187, 1305, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dk78"]
+atlas = ExtResource("1_rignv")
+region = Rect2(1187, 1404, 16, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d7clf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtasd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rldtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xsr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtasd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dk78")
+}],
+"loop": true,
+"name": &"truba_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_daioe"]
+radius = 8.50002
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+scale = Vector2(4, 4)
+script = ExtResource("1_p3hsk")
+speed = 450
+
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation = 1.5708
+ignore_rotation = false
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
+autoplay = "idle"
+speed_scale = 34.19
+libraries = {
+"": SubResource("AnimationLibrary_ijofu")
+}
+
+[node name="Anim" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Anim"]
+texture_filter = 1
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_84esx")
+animation = &"walk_legs"
+speed_scale = 3.0
+script = SubResource("GDScript_4eigt")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Anim"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_qedhm")
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_4w5pw")
+animation = &"truba_hit"
+autoplay = "truba_hit"
+frame = 4
+frame_progress = 1.0
+speed_scale = 2.5
+offset = Vector2(9, 3.5)
+script = SubResource("GDScript_8svnx")
+
+[node name="RayCast2D" type="RayCast2D" parent="Anim/AnimatedSprite2D3"]
+position = Vector2(0, -1.61)
+scale = Vector2(0.641, 1)
+target_position = Vector2(38.397, 0)
+collision_mask = 3
+collide_with_areas = true
+script = ExtResource("3_rw1mo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Anim"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_glaei")
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_d7clf")
+animation = &"truba_walk"
+speed_scale = 1.5
+offset = Vector2(0, 3.5)
+script = SubResource("GDScript_8svnx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.75, -5.5)
+shape = SubResource("CircleShape2D_daioe")
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uh42x")
+
+[connection signal="animation_finished" from="Anim/AnimatedSprite2D3" to="." method="_on_animated_sprite_2d_3_animation_finished"]

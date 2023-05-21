@@ -1,0 +1,235 @@
+[gd_scene load_steps=14 format=3 uid="uid://dyqm5jln344s4"]
+
+[ext_resource type="AudioStream" uid="uid://b33ldiyjfsqa3" path="res://music/Tape - Beams.mp3" id="1_nfafa"]
+[ext_resource type="Texture2D" uid="uid://d4lky1wn31f13" path="res://menu_bg.png" id="2_uq43o"]
+[ext_resource type="Texture2D" uid="uid://bgji1y5q43ns6" path="res://logo.png" id="3_8ljmv"]
+[ext_resource type="FontFile" uid="uid://c2jciwerflyy0" path="res://fonts/Phorssa.ttf" id="4_qsrq2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umdc8"]
+
+[sub_resource type="Shader" id="Shader_7bhtn"]
+code = "shader_type canvas_item;
+
+uniform float brightness : hint_range(0.001, 2.0) = 1.0;
+uniform float anchor : hint_range(-1.0,0.0) = -0.5;
+//The point where all the lines come from.
+uniform float speed_scale = 1.0;
+uniform float fov : hint_range(0.001, 1.0) = 0.2;
+uniform float line_count = 1.0;
+uniform vec4 background_color : source_color = vec4(0.0, 0.1, 0.2, 1.0);
+uniform vec4 grid_color : source_color = vec4(1.0, 0.5, 1.0, 1.0);
+
+float grid(vec2 uv, float batt) {
+    vec2 size = vec2(uv.y, uv.y * uv.y * 0.2) * 0.01* (batt + 0.05);
+    uv += vec2(0.0, TIME * speed_scale);
+    uv = abs(fract(uv) - 0.5);
+ 	vec2 lines = smoothstep(size, vec2(0.0), uv);
+ 	lines += smoothstep(size * 5.0, vec2(0.0), uv) * 0.4 * batt;
+    return lines.x + lines.y;
+}
+void fragment() {
+	vec2 uv = UV;
+	vec4 col = background_color;
+    uv.y = 3.0 / (abs(uv.y + fov) + 0.05);
+	uv.x += anchor;
+    uv.x *= uv.y * line_count;
+    float gridVal = grid(uv, brightness);
+    col = mix(background_color, grid_color, gridVal);
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v5i2"]
+shader = SubResource("Shader_7bhtn")
+shader_parameter/brightness = 1.823
+shader_parameter/anchor = -0.5
+shader_parameter/speed_scale = 0.122
+shader_parameter/fov = 0.001
+shader_parameter/line_count = 1.0
+shader_parameter/background_color = Color(0, 0, 0, 0.105882)
+shader_parameter/grid_color = Color(0.196078, 0.854902, 1, 0.0941176)
+
+[sub_resource type="Theme" id="Theme_816ql"]
+
+[sub_resource type="Shader" id="Shader_8fkaa"]
+code = "shader_type canvas_item;
+
+//defines the coefficient
+uniform float coeff : hint_range(0, .5);
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+
+void fragment(){
+	//gets the SCREEN_UV
+	vec2 suv = SCREEN_UV;
+	
+	//side maps 0.0>1.0 into -1.0>1.0
+	//side as in \"-1.0 is the left side, 1.0 is the right one\"
+	float side = (SCREEN_UV.y * 2.0) - 1.0;
+	
+	//mountain maps 0.0>1.0 into a 0.0>0.0, where the mid-value is 1.0.
+	float mountain = -abs((SCREEN_UV.x * 2.0) - 1.0) + 1.0;
+	
+	//maps mountain into a sine-wave's first ramp
+	mountain = mountain * PI/2.0;
+	
+	//newv says 'how much should the pixel be moved based in its position?'
+	//mountain defines the amount, coeff scales it and 'sin' smooths it out.
+	//the multiplication with PI/2.0 is mandatory for sin to work
+	float newv = coeff * sin(mountain);
+	
+	//modifies the screen uv saved before
+	//(newv * side) applies the effect on both left and right.
+	//if 'side' wasn't here, the effect would be applied only one way.
+	//even more important is the subtraction with 'coeff*size'.
+	//this scales the shader up and down so that you don't end up with borders.
+	suv.y += ((newv * side) - (coeff*side));
+	
+	//updates the texture
+	COLOR = texture(SCREEN_TEXTURE, suv);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vu3mo"]
+shader = SubResource("Shader_8fkaa")
+shader_parameter/coeff = 0.157
+
+[sub_resource type="Animation" id="Animation_r0jbb"]
+resource_name = "menu_shake"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuBg:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599, -0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuBg:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(0.7, 0.7)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(602, 171), Vector2(602, 158), Vector2(602, 171), Vector2(602, 158)]
+}
+
+[sub_resource type="Animation" id="Animation_sp02j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuBg:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuBg:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.8, 0.8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(602, 171)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_knsup"]
+_data = {
+"RESET": SubResource("Animation_sp02j"),
+"menu_shake": SubResource("Animation_r0jbb")
+}
+
+[node name="main_menu" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_nfafa")
+autoplay = true
+bus = &"reverb"
+
+[node name="MenuBg" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_umdc8")
+position = Vector2(576, 324)
+rotation = -0.0523599
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_uq43o")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2v5i2")
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(602, 171)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_8ljmv")
+
+[node name="buttons" type="Node2D" parent="."]
+
+[node name="Button" type="Button" parent="buttons"]
+offset_left = 269.0
+offset_top = 297.0
+offset_right = 898.0
+offset_bottom = 399.0
+theme = SubResource("Theme_816ql")
+theme_override_fonts/font = ExtResource("4_qsrq2")
+theme_override_font_sizes/font_size = 60
+text = "Новая игра"
+
+[node name="Button2" type="Button" parent="buttons"]
+offset_left = 269.0
+offset_top = 422.0
+offset_right = 898.0
+offset_bottom = 524.0
+theme = SubResource("Theme_816ql")
+theme_override_fonts/font = ExtResource("4_qsrq2")
+theme_override_font_sizes/font_size = 60
+text = "Продолжить"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vu3mo")
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "menu_shake"
+libraries = {
+"": SubResource("AnimationLibrary_knsup")
+}

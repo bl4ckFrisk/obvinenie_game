@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjm4fp50wf0h1"
+path="res://.godot/imported/Akira Yamaoka - Wishing for Joy.mp3-5c80dbe82301b1e812ef98168f2dfede.mp3str"
+
+[deps]
+
+source_file="res://music/Akira Yamaoka - Wishing for Joy.mp3"
+dest_files=["res://.godot/imported/Akira Yamaoka - Wishing for Joy.mp3-5c80dbe82301b1e812ef98168f2dfede.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
